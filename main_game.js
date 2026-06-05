@@ -18,7 +18,7 @@ class Player {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.radius = 30;
+    this.radius = 10;
     this.speed = 10;
   }
   render() {
@@ -37,10 +37,48 @@ class Player {
   }
 }
 
-const CHARS = [];
-let player = new Player(window.innerWidth / 2, window.innerHeight / 2);
-CHARS.push(player);
+class bucket {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.radius = 30;
+    this.speed = 0;
+  }
+  render() {
+    const { x, y } = this;
+    const widthTop = 80;
+    const widthBottom = 50;
+    const height = 70;
+    const leftTop = -widthTop / 2;
+    const rightTop = widthTop / 2;
+    const leftBottom = -widthBottom / 2;
+    const rightBottom = widthBottom / 2;
+    const angle = (-20 * Math.PI) / 180;
 
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "black";
+    ctx.moveTo(leftTop, 0);
+    ctx.lineTo(rightTop, 0);
+    ctx.lineTo(rightBottom, height);
+    ctx.lineTo(leftBottom, height);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.restore();
+  }
+}
+
+const CHARS = [];
+let player = new Player(window.innerWidth / 4, window.innerHeight / 2);
+
+let bucket1 = new bucket(window.innerWidth / 2, window.innerHeight / 2);
+CHARS.push(player);
+CHARS.push(bucket1);
 // function for applying any initial settings
 function init() {
   // apply a fullscreen fit
